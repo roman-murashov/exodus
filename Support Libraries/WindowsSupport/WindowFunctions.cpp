@@ -358,7 +358,7 @@ HWND CreateWindowThread(HINSTANCE hInstance, const std::wstring& windowName, WND
 	{
 		while(!writtenHandle)
 		{
-			Sleep(1);
+			Sleep(10);
 		}
 	}
 	else

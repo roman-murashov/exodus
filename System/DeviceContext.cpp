@@ -735,7 +735,7 @@ void DeviceContext::ExecuteWorkerThreadStepWithDependencies()
 				//SafeMemoryBarrierRead();
 				while((currentTimesliceProgress > deviceDependencies[i].device->currentTimesliceProgress) && deviceDependencies[i].dependencyEnabled)
 				{
-					Sleep(1);
+					Sleep(10);
 					//SafeMemoryBarrierRead();
 				}
 			}
@@ -844,7 +844,7 @@ void DeviceContext::ExecuteWorkerThreadStepMultipleDeviceSharedDependencies(Devi
 					{
 						while(((device1->deviceDependencies[i].device != device2) || device1->sharedExecuteThreadSpinoffRejoinRequested) && (device1->currentTimesliceProgress > device1->deviceDependencies[i].device->currentTimesliceProgress) && device1->deviceDependencies[i].dependencyEnabled)
 						{
-							Sleep(1);
+							Sleep(10);
 						}
 					}
 					device1->currentTimesliceProgress += device1->device.ExecuteStep();
@@ -869,7 +869,7 @@ void DeviceContext::ExecuteWorkerThreadStepMultipleDeviceSharedDependencies(Devi
 					{
 						while(((device2->deviceDependencies[i].device != device1) || device1->sharedExecuteThreadSpinoffRejoinRequested) && (device2->currentTimesliceProgress > device2->deviceDependencies[i].device->currentTimesliceProgress) && device2->deviceDependencies[i].dependencyEnabled)
 						{
-							Sleep(1);
+							Sleep(10);
 						}
 					}
 					device2->currentTimesliceProgress += device2->device.ExecuteStep();
@@ -1019,7 +1019,7 @@ void DeviceContext::ExecuteWorkerThreadStepSharedExecutionThreadSpinoff()
 			{
 				while((spinoffThreadTargetDevice->currentTimesliceProgress > spinoffThreadTargetDevice->deviceDependencies[i].device->currentTimesliceProgress) && spinoffThreadTargetDevice->deviceDependencies[i].dependencyEnabled)
 				{
-					Sleep(1);
+					Sleep(10);
 				}
 			}
 			spinoffThreadTargetDevice->currentTimesliceProgress += spinoffThreadTargetDevice->device.ExecuteStep();
