@@ -108,6 +108,8 @@ private:
 	unsigned int layerBPatternBase;
 	unsigned int windowPatternBase;
 	unsigned int spritePatternBase;
+
+	bool needsUpdate;
 };
 
 #endif

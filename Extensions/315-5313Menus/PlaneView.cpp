@@ -497,6 +497,9 @@ LRESULT PlaneView::WndProcRender(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 		return msgRenderWM_CREATE(hwnd, wparam, lparam);
 	case WM_DESTROY:
 		return msgRenderWM_DESTROY(hwnd, wparam, lparam);
+	case WM_PAINT:
+		needsUpdate = true;
+		break;
 	case WM_TIMER:
 		return msgRenderWM_TIMER(hwnd, wparam, lparam);
 	case WM_LBUTTONDOWN:
@@ -1084,7 +1087,14 @@ LRESULT PlaneView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 	HDC hdc = GetDC(hwnd);
 	if(hdc != NULL)
 	{
-		if((glrc != NULL) && (wglMakeCurrent(hdc, glrc) != FALSE))
+		bool madeCurrent = true;
+		if (needsUpdate)
+		{
+			madeCurrent = (wglMakeCurrent(hdc, glrc) != FALSE);
+			needsUpdate = false;
+		}
+
+		if ((glrc != NULL) && madeCurrent)
 		{
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
@@ -1138,7 +1148,6 @@ LRESULT PlaneView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 
 			glFlush();
 			SwapBuffers(hdc);
-			wglMakeCurrent(NULL, NULL);
 		}
 		ReleaseDC(hwnd, hdc);
 	}

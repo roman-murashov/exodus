@@ -264,11 +264,11 @@ LRESULT ImageView::msgRenderWM_CREATE(HWND hwnd, WPARAM wparam, LPARAM lparam)
 		delete[] nullBuffer;
 
 		//Release the rendering context
-		wglMakeCurrent(NULL, NULL);
+		needsUpdate = true;
 	}
 
 	//Start a timer to update the output image
-	SetTimer(hwnd, 1, 1000/60, NULL);
+	SetTimer(hwnd, 1, 1000/25, NULL);
 
 	//Start a timer to rotate our highlighted colours
 	SetTimer(hwnd, 2, 100, NULL);
@@ -308,7 +308,7 @@ LRESULT ImageView::msgRenderWM_SIZE(HWND hwnd, WPARAM wParam, LPARAM lParam)
 	HDC hdc = GetDC(hwnd);
 	if(hdc != NULL)
 	{
-		if((glrc != NULL) && (wglMakeCurrent(hdc, glrc) != FALSE))
+		if ((glrc != NULL) && (wglMakeCurrent(hdc, glrc) != FALSE))
 		{
 			//Flag two pending clear operations of the OpenGL colour buffer. We need to do
 			//this when resizing the viewport, since if we make an adjustment to a smaller
@@ -329,16 +329,20 @@ LRESULT ImageView::msgRenderWM_SIZE(HWND hwnd, WPARAM wParam, LPARAM lParam)
 //----------------------------------------------------------------------------------------
 LRESULT ImageView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
-	if (!needsUpdate) return 0;
-
-	needsUpdate = false;
 	switch(wparam)
 	{
 	case 1:{
 		HDC hdc = GetDC(hwnd);
 		if(hdc != NULL)
 		{
-			if((glrc != NULL) && (wglMakeCurrent(hdc, glrc) != FALSE))
+			bool madeCurrent = true;
+			if (needsUpdate)
+			{
+				madeCurrent = (wglMakeCurrent(hdc, glrc) != FALSE);
+				needsUpdate = false;
+			}
+
+			if ((glrc != NULL) && madeCurrent)
 			{
 				//If the fixed aspect ratio setting has changed, update the OpenGL
 				//viewport.
@@ -364,9 +368,6 @@ LRESULT ImageView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 
 				//Make the render buffer we just drew to visible on the screen
 				SwapBuffers(hdc);
-
-				//Release the OpenGL render context
-				wglMakeCurrent(NULL, NULL);
 			}
 			ReleaseDC(hwnd, hdc);
 		}

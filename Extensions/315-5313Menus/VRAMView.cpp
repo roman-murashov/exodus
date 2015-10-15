@@ -369,8 +369,6 @@ LRESULT VRAMView::msgRenderWM_DESTROY(HWND hwnd, WPARAM wparam, LPARAM lparam)
 //----------------------------------------------------------------------------------------
 LRESULT VRAMView::msgRenderWM_PAINT(HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
-	needsUpdateRender = true;
-	
 	PAINTSTRUCT paintInfo;
 	HDC hdc = BeginPaint(hwnd, &paintInfo);
 
@@ -401,10 +399,6 @@ LRESULT VRAMView::msgRenderWM_PAINT(HWND hwnd, WPARAM wParam, LPARAM lParam)
 //----------------------------------------------------------------------------------------
 LRESULT VRAMView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
-	if (!needsUpdateRender) return 0;
-
-	needsUpdateRender = false;
-	
 	//Obtain a copy of the current VRAM data buffer
 	bool obtainedVRAMData = false;
 	model.LockExternalBuffers();
@@ -741,8 +735,6 @@ INT_PTR VRAMView::WndProcDetails(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 	{
 	case WM_INITDIALOG:
 		return msgDetailsWM_INITDIALOG(hwnd, wparam, lparam);
-	case WM_PAINT:
-		needsUpdateDetails = true;
 	case WM_TIMER:
 		return msgDetailsWM_TIMER(hwnd, wparam, lparam);
 	}
@@ -761,10 +753,6 @@ INT_PTR VRAMView::msgDetailsWM_INITDIALOG(HWND hwnd, WPARAM wparam, LPARAM lpara
 //----------------------------------------------------------------------------------------
 INT_PTR VRAMView::msgDetailsWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
-	if (!needsUpdateDetails) return 0;
-
-	needsUpdateDetails = false;
-	
 	//Update address and block numbers
 	UpdateDlgItemHex(hwnd, IDC_VDP_VRAM_DETAILS_ADDRESS, 4, tileAddress);
 	UpdateDlgItemHex(hwnd, IDC_VDP_VRAM_DETAILS_NUMBER, 4, tileNumber);
