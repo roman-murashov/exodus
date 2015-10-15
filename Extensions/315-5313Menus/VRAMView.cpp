@@ -326,6 +326,7 @@ LRESULT VRAMView::WndProcRender(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpara
 	case WM_DESTROY:
 		return msgRenderWM_DESTROY(hwnd, wparam, lparam);
 	case WM_PAINT:
+		needsUpdate = true;
 		return msgRenderWM_PAINT(hwnd, wparam, lparam);
 	case WM_TIMER:
 		return msgRenderWM_TIMER(hwnd, wparam, lparam);
@@ -399,6 +400,10 @@ LRESULT VRAMView::msgRenderWM_PAINT(HWND hwnd, WPARAM wParam, LPARAM lParam)
 //----------------------------------------------------------------------------------------
 LRESULT VRAMView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
+	if (!needsUpdate) return 0;
+
+	needsUpdate = false;
+	
 	//Obtain a copy of the current VRAM data buffer
 	bool obtainedVRAMData = false;
 	model.LockExternalBuffers();
@@ -746,7 +751,7 @@ INT_PTR VRAMView::WndProcDetails(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 //----------------------------------------------------------------------------------------
 INT_PTR VRAMView::msgDetailsWM_INITDIALOG(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
-	SetTimer(hwnd, 1, 1000/20, NULL);
+	SetTimer(hwnd, 1, 1000/200, NULL);
 	return TRUE;
 }
 
@@ -767,22 +772,9 @@ INT_PTR VRAMView::msgDetailsWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 			HWND hwndCell = GetDlgItem(hwnd, IDC_VDP_VRAM_DETAILS_DATA00 + (y * blockWidth) + x);
 			if(hwndCell != NULL)
 			{
-				HDC dc = GetDC(hwndCell);
-				if(dc != NULL)
-				{
-					HBRUSH brush = CreateSolidBrush(RGB(tileDetails[y][x].r, tileDetails[y][x].g, tileDetails[y][x].b));
-					if(brush != NULL)
-					{
-						RECT rect;
-						GetClientRect(hwndCell, &rect);
-						FillRect(dc, &rect, brush);
-						std::wstringstream stream;
-						stream << std::hex << std::uppercase << tileDetails[y][x].value;
-						DrawText(dc, stream.str().c_str(), (int)stream.str().size(), &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-						DeleteObject(brush);
-					}
-					ReleaseDC(hwndCell, dc);
-				}
+				char val[2];
+				sprintf(val, "%X", (unsigned char)tileDetails[y][x].value);
+				SetWindowTextA(hwndCell, val);
 			}
 		}
 	}

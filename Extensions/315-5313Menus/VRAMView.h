@@ -116,6 +116,8 @@ private:
 	TileEntry tileDetails[16][8];
 	unsigned int tileAddress;
 	unsigned int tileNumber;
+
+	bool needsUpdate;
 };
 
 #endif

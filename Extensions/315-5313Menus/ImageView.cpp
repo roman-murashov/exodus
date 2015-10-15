@@ -204,6 +204,9 @@ LRESULT ImageView::WndProcRender(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 		return msgRenderWM_DESTROY(hwnd, wparam, lparam);
 	case WM_SIZE:
 		return msgRenderWM_SIZE(hwnd, wparam, lparam);
+	case WM_PAINT:
+		needsUpdate = true;
+		break;
 	case WM_TIMER:
 		return msgRenderWM_TIMER(hwnd, wparam, lparam);
 	case WM_MOUSEMOVE:
@@ -265,7 +268,7 @@ LRESULT ImageView::msgRenderWM_CREATE(HWND hwnd, WPARAM wparam, LPARAM lparam)
 	}
 
 	//Start a timer to update the output image
-	SetTimer(hwnd, 1, 10, NULL);
+	SetTimer(hwnd, 1, 1000/25, NULL);
 
 	//Start a timer to rotate our highlighted colours
 	SetTimer(hwnd, 2, 100, NULL);
@@ -326,6 +329,9 @@ LRESULT ImageView::msgRenderWM_SIZE(HWND hwnd, WPARAM wParam, LPARAM lParam)
 //----------------------------------------------------------------------------------------
 LRESULT ImageView::msgRenderWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 {
+	if (!needsUpdate) return 0;
+
+	needsUpdate = false;
 	switch(wparam)
 	{
 	case 1:{

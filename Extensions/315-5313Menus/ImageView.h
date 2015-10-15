@@ -95,6 +95,8 @@ private:
 	bool pixelInfoVisible;
 	int pixelInfoTargetBufferPosX;
 	int pixelInfoTargetBufferPosY;
+
+	bool needsUpdate;
 };
 
 #endif
