@@ -268,7 +268,7 @@ LRESULT ImageView::msgRenderWM_CREATE(HWND hwnd, WPARAM wparam, LPARAM lparam)
 	}
 
 	//Start a timer to update the output image
-	SetTimer(hwnd, 1, 1000/25, NULL);
+	SetTimer(hwnd, 1, 1000/60, NULL);
 
 	//Start a timer to rotate our highlighted colours
 	SetTimer(hwnd, 2, 100, NULL);

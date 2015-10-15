@@ -117,7 +117,8 @@ private:
 	unsigned int tileAddress;
 	unsigned int tileNumber;
 
-	bool needsUpdate;
+	bool needsUpdateRender;
+	bool needsUpdateDetails;
 };
 
 #endif
