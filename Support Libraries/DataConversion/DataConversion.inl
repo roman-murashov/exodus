@@ -178,10 +178,8 @@ template<class T> bool IntToString(T data, std::wstring& string, unsigned int st
 //----------------------------------------------------------------------------------------
 template<class T> void IntToStringBase16(T data, std::wstring& string, unsigned int charLength, bool encodeType)
 {
-	//Set some constants for the requested output base type
-	unsigned int bitsInChar = 4;
-	unsigned int bitMask = 0xF;
-	wchar_t prefixChar = L'x';
+	wchar_t buf[100] = { 0 }, fmt[20] = { 0 };
+	int off = 0;
 
 	//If the number is negative, flag that we're working with a negative number, and
 	//convert it to a positive number. Note that there's a potential overflow here with
@@ -198,52 +196,32 @@ template<class T> void IntToStringBase16(T data, std::wstring& string, unsigned 
 		data = 0 - data;
 	}
 
-	//Start to build the string representation of the input data, writing the data in
-	//reverse. We build the string in reverse because it's hard to know the final required
-	//length of the string ahead of time, and this avoids the need to push data to the
-	//front of the string as we build it, which would be less efficient.
-	std::wstring reverseString;
-
-	//Convert the input data to a string one character at a time, until the data reaches a
-	//value of 0. Note that we ensure here that a value of 0 outputs a character as well.
-	unsigned int chars = 0;
-	do
+	//Add the negative sign to the string if required
+	if (negative)
 	{
-		unsigned int nybble = (unsigned int)(data & bitMask);
-		reverseString.push_back(HexNybbleToWChar(nybble));
-		data >>= bitsInChar;
-		++chars;
-	}
-	while(data != 0);
-
-	//Pad out the resulting string to the requested minimum character length
-	for(unsigned int i = chars; i < charLength; ++i)
-	{
-		reverseString.push_back(L'0');
+		buf[off++] = L'-';
 	}
 
 	//Apply a prefix to the string if requested
-	if(encodeType)
+	if (encodeType)
 	{
-		reverseString.push_back(prefixChar);
-		reverseString.push_back(L'0');
+		buf[off++] = L'0';
+		buf[off++] = L'x';
 	}
 
-	//Add the negative sign to the string if required
-	if(negative)
-	{
-		reverseString.push_back(L'-');
-	}
+	//Pad out the resulting string to the requested minimum character length
+	fmt[0] = L'%';
+	swprintf(&fmt[1], 20, L"0%dX", charLength);
+	swprintf(&buf[off], 100, fmt, data);
 
-	//Write the reverse string to the output string in the correct order
-	string.assign(reverseString.rbegin(), reverseString.rend());
+	string = buf;
 }
 
 //----------------------------------------------------------------------------------------
 template<class T> void IntToStringBase10(T data, std::wstring& string, unsigned int charLength, bool encodeType)
 {
-	//Set some constants for the requested output base type
-	wchar_t prefixChar = L'd';
+	wchar_t buf[100] = { 0 }, fmt[20] = { 0 };
+	int off = 0;
 
 	//If the number is negative, flag that we're working with a negative number, and
 	//convert it to a positive number. Note that there's a potential overflow here with
@@ -260,54 +238,32 @@ template<class T> void IntToStringBase10(T data, std::wstring& string, unsigned 
 		data = 0 - data;
 	}
 
-	//Start to build the string representation of the input data, writing the data in
-	//reverse. We build the string in reverse because it's hard to know the final required
-	//length of the string ahead of time, and this avoids the need to push data to the
-	//front of the string as we build it, which would be less efficient.
-	std::wstring reverseString;
-
-	//Convert the input data to a string one character at a time, until the data reaches a
-	//value of 0. Note that we ensure here that a value of 0 outputs a character as well.
-	unsigned int chars = 0;
-	do
+	//Add the negative sign to the string if required
+	if (negative)
 	{
-		unsigned int digit = (unsigned int)(data % 10);
-		reverseString.push_back(HexNybbleToWChar(digit));
-		data /= 10;
-		++chars;
-	}
-	while(data != 0);
-
-	//Pad out the resulting string to the requested minimum character length
-	for(unsigned int i = chars; i < charLength; ++i)
-	{
-		reverseString.push_back(L'0');
+		buf[off++] = L'-';
 	}
 
 	//Apply a prefix to the string if requested
-	if(encodeType)
+	if (encodeType)
 	{
-		reverseString.push_back(prefixChar);
-		reverseString.push_back(L'0');
+		buf[off++] = L'0';
+		buf[off++] = L'd';
 	}
 
-	//Add the negative sign to the string if required
-	if(negative)
-	{
-		reverseString.push_back(L'-');
-	}
+	//Pad out the resulting string to the requested minimum character length
+	fmt[0] = L'%';
+	swprintf(&fmt[1], 20, L"0%dd", charLength);
+	swprintf(&buf[off], 100, fmt, data);
 
-	//Write the reverse string to the output string in the correct order
-	string.assign(reverseString.rbegin(), reverseString.rend());
+	string = buf;
 }
 
 //----------------------------------------------------------------------------------------
 template<class T> void IntToStringBase8(T data, std::wstring& string, unsigned int charLength, bool encodeType)
 {
-	//Set some constants for the requested output base type
-	unsigned int bitsInChar = 3;
-	unsigned int bitMask = 0x7;
-	wchar_t prefixChar = L'o';
+	wchar_t buf[100] = { 0 }, fmt[20] = { 0 };
+	int off = 0;
 
 	//If the number is negative, flag that we're working with a negative number, and
 	//convert it to a positive number. Note that there's a potential overflow here with
@@ -324,54 +280,32 @@ template<class T> void IntToStringBase8(T data, std::wstring& string, unsigned i
 		data = 0 - data;
 	}
 
-	//Start to build the string representation of the input data, writing the data in
-	//reverse. We build the string in reverse because it's hard to know the final required
-	//length of the string ahead of time, and this avoids the need to push data to the
-	//front of the string as we build it, which would be less efficient.
-	std::wstring reverseString;
-
-	//Convert the input data to a string one character at a time, until the data reaches a
-	//value of 0. Note that we ensure here that a value of 0 outputs a character as well.
-	unsigned int chars = 0;
-	do
+	//Add the negative sign to the string if required
+	if (negative)
 	{
-		unsigned int nybble = (unsigned int)(data & bitMask);
-		reverseString.push_back(HexNybbleToWChar(nybble));
-		data >>= bitsInChar;
-		++chars;
-	}
-	while(data != 0);
-
-	//Pad out the resulting string to the requested minimum character length
-	for(unsigned int i = chars; i < charLength; ++i)
-	{
-		reverseString.push_back(L'0');
+		buf[off++] = L'-';
 	}
 
 	//Apply a prefix to the string if requested
-	if(encodeType)
+	if (encodeType)
 	{
-		reverseString.push_back(prefixChar);
-		reverseString.push_back(L'0');
+		buf[off++] = L'0';
+		buf[off++] = L'o';
 	}
 
-	//Add the negative sign to the string if required
-	if(negative)
-	{
-		reverseString.push_back(L'-');
-	}
+	//Pad out the resulting string to the requested minimum character length
+	fmt[0] = L'%';
+	swprintf(&fmt[1], 20, L"0%do", charLength);
+	swprintf(&buf[off], 100, fmt, data);
 
-	//Write the reverse string to the output string in the correct order
-	string.assign(reverseString.rbegin(), reverseString.rend());
+	string = buf;
 }
 
 //----------------------------------------------------------------------------------------
 template<class T> void IntToStringBase2(T data, std::wstring& string, unsigned int charLength, bool encodeType)
 {
-	//Set some constants for the requested output base type
-	unsigned int bitsInChar = 1;
-	unsigned int bitMask = 0x1;
-	wchar_t prefixChar = L'b';
+	wchar_t buf[100] = { 0 };
+	int off = 0;
 
 	//If the number is negative, flag that we're working with a negative number, and
 	//convert it to a positive number. Note that there's a potential overflow here with
@@ -382,51 +316,45 @@ template<class T> void IntToStringBase2(T data, std::wstring& string, unsigned i
 	//guaranteed by the C++ standard, but is a pretty safe assumption now and into the
 	//future.
 	bool negative = false;
-	if(data < 0)
+	if (data < 0)
 	{
 		negative = true;
 		data = 0 - data;
 	}
 
-	//Start to build the string representation of the input data, writing the data in
-	//reverse. We build the string in reverse because it's hard to know the final required
-	//length of the string ahead of time, and this avoids the need to push data to the
-	//front of the string as we build it, which would be less efficient.
-	std::wstring reverseString;
-
-	//Convert the input data to a string one character at a time, until the data reaches a
-	//value of 0. Note that we ensure here that a value of 0 outputs a character as well.
-	unsigned int chars = 0;
-	do
+	//Add the negative sign to the string if required
+	if (negative)
 	{
-		unsigned int nybble = (unsigned int)(data & bitMask);
-		reverseString.push_back(HexNybbleToWChar(nybble));
-		data >>= bitsInChar;
-		++chars;
-	}
-	while(data != 0);
-
-	//Pad out the resulting string to the requested minimum character length
-	for(unsigned int i = chars; i < charLength; ++i)
-	{
-		reverseString.push_back(L'0');
+		buf[off++] = L'-';
 	}
 
 	//Apply a prefix to the string if requested
-	if(encodeType)
+	if (encodeType)
 	{
-		reverseString.push_back(prefixChar);
-		reverseString.push_back(L'0');
+		buf[off++] = L'0';
+		buf[off++] = L'b';
 	}
 
-	//Add the negative sign to the string if required
-	if(negative)
+	//Pad out the resulting string to the requested minimum character length
+	unsigned int mask = ((charLength == 0) ? 0x80000000 : (1 << (charLength - 1)));
+
+	if (charLength == 0)
 	{
-		reverseString.push_back(L'-');
+		while ((data & mask) == 0)
+		{
+			mask >>= 1;
+		}
+
+		buf[off++] = ((data & mask) == 0) ? L'0' : L'1';
 	}
 
-	//Write the reverse string to the output string in the correct order
-	string.assign(reverseString.rbegin(), reverseString.rend());
+	while (mask > 0)
+	{
+		buf[off++] = ((data & mask) == 0) ? L'0' : L'1';
+		mask >>= 1;
+	}
+
+	string = buf;
 }
 
 //----------------------------------------------------------------------------------------
