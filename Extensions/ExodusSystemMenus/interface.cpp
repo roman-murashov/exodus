@@ -3,12 +3,12 @@
 
 IExtension* GetExodusSystemMenus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new ExodusSystemMenus(implementationName, instanceName, moduleID));
+	return new ExodusSystemMenus(implementationName, instanceName, moduleID);
 }
 
 void DeleteExodusSystemMenus(IExtension* extension)
 {
-	delete static_cast<ExodusSystemMenus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

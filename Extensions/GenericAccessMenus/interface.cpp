@@ -3,12 +3,12 @@
 
 IExtension* GetGenericAccessMenus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new GenericAccessMenus(implementationName, instanceName, moduleID));
+	return new GenericAccessMenus(implementationName, instanceName, moduleID);
 }
 
 void DeleteGenericAccessMenus(IExtension* extension)
 {
-	delete static_cast<GenericAccessMenus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

@@ -3,7 +3,7 @@
 
 IDevice* GetSN76489(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IDevice*>(new SN76489(implementationName, instanceName, moduleID));
+	return new SN76489(implementationName, instanceName, moduleID);
 }
 
 void DeleteSN76489(IDevice* device)

@@ -3,7 +3,7 @@
 
 IDevice* GetM68000(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IDevice*>(new M68000::M68000(implementationName, instanceName, moduleID));
+	return new M68000::M68000(implementationName, instanceName, moduleID);
 }
 
 void DeleteM68000(IDevice* device)

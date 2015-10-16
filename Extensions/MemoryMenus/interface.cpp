@@ -3,12 +3,12 @@
 
 IExtension* GetMemoryMenus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new MemoryMenus(implementationName, instanceName, moduleID));
+	return new MemoryMenus(implementationName, instanceName, moduleID);
 }
 
 void DeleteMemoryMenus(IExtension* extension)
 {
-	delete static_cast<MemoryMenus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

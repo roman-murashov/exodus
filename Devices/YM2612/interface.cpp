@@ -3,7 +3,7 @@
 
 IDevice* GetYM2612(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IDevice*>(new YM2612(implementationName, instanceName, moduleID));
+	return new YM2612(implementationName, instanceName, moduleID);
 }
 
 void DeleteYM2612(IDevice* device)

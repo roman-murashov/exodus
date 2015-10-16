@@ -3,12 +3,12 @@
 
 IExtension* GetProcessorMenus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new ProcessorMenus(implementationName, instanceName, moduleID));
+	return new ProcessorMenus(implementationName, instanceName, moduleID);
 }
 
 void DeleteProcessorMenus(IExtension* extension)
 {
-	delete static_cast<ProcessorMenus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

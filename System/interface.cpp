@@ -3,12 +3,12 @@
 
 ISystemGUIInterface* GetSystem(IGUIExtensionInterface& guiInterface)
 {
-	return static_cast<ISystemGUIInterface*>(new System(guiInterface));
+	return new System(guiInterface);
 }
 
 void DeleteSystem(ISystemGUIInterface* system)
 {
-	delete static_cast<System*>(system);
+	delete system;
 }
 
 #ifdef EX_DLLINTERFACE

@@ -3,12 +3,12 @@
 
 IExtension* GetS315_5313Menus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new S315_5313Menus(implementationName, instanceName, moduleID));
+	return new S315_5313Menus(implementationName, instanceName, moduleID);
 }
 
 void DeleteS315_5313Menus(IExtension* extension)
 {
-	delete static_cast<S315_5313Menus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

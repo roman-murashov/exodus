@@ -3,12 +3,12 @@
 
 IExtension* GetSN76489Menus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new SN76489Menus(implementationName, instanceName, moduleID));
+	return new SN76489Menus(implementationName, instanceName, moduleID);
 }
 
 void DeleteSN76489Menus(IExtension* extension)
 {
-	delete static_cast<SN76489Menus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

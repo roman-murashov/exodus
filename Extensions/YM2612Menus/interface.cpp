@@ -3,12 +3,12 @@
 
 IExtension* GetYM2612Menus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new YM2612Menus(implementationName, instanceName, moduleID));
+	return new YM2612Menus(implementationName, instanceName, moduleID);
 }
 
 void DeleteYM2612Menus(IExtension* extension)
 {
-	delete static_cast<YM2612Menus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

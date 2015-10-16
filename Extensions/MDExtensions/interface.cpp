@@ -3,12 +3,12 @@
 
 IExtension* GetMegaDriveROMLoader(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new MegaDriveROMLoader(implementationName, instanceName, moduleID));
+	return new MegaDriveROMLoader(implementationName, instanceName, moduleID);
 }
 
 void DeleteMegaDriveROMLoader(IExtension* extension)
 {
-	delete static_cast<MegaDriveROMLoader*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

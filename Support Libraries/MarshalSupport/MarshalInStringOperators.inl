@@ -104,7 +104,7 @@ template<class ElementType, class traits, class Alloc>
 bool operator!=(const In<std::basic_string<ElementType, traits, Alloc>>& left, const ElementType *right)
 {
 	return (left.GetWithoutMove() !== right);
-}
+} //-V591
 
 //----------------------------------------------------------------------------------------
 template<class ElementType, class traits, class Alloc>

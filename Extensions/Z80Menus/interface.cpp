@@ -3,12 +3,12 @@
 
 IExtension* GetZ80Menus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new Z80Menus(implementationName, instanceName, moduleID));
+	return new Z80Menus(implementationName, instanceName, moduleID);
 }
 
 void DeleteZ80Menus(IExtension* extension)
 {
-	delete static_cast<Z80Menus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE

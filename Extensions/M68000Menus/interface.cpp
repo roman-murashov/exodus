@@ -3,12 +3,12 @@
 
 IExtension* GetM68000Menus(const wchar_t* implementationName, const wchar_t* instanceName, unsigned int moduleID)
 {
-	return static_cast<IExtension*>(new M68000Menus(implementationName, instanceName, moduleID));
+	return new M68000Menus(implementationName, instanceName, moduleID);
 }
 
 void DeleteM68000Menus(IExtension* extension)
 {
-	delete static_cast<M68000Menus*>(extension);
+	delete extension;
 }
 
 #ifdef EX_DLLINTERFACE
