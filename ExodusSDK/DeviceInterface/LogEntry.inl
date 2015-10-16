@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------------------
 void LogEntry::SetText(const std::wstring& atext)
 {
-	text.str() = L"";
+	text.str().clear();
 	text << atext;
 }
 

@@ -51,12 +51,12 @@ struct ViewManager::PlaceholderWindowInfo
 	:parentIsDashboardWindow(false), placeholderContentWindow(NULL), parentWindowFrame(NULL), makeContentVisible(false), selectedContentWindow(false), viewType(IView::ViewType::Dockable)
 	{}
 
-	bool parentIsDashboardWindow;
 	HWND placeholderContentWindow;
 	HWND parentWindowFrame;
+	IView::ViewType viewType;
 	bool makeContentVisible;
 	bool selectedContentWindow;
-	IView::ViewType viewType;
+	bool parentIsDashboardWindow;
 };
 
 //----------------------------------------------------------------------------------------

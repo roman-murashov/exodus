@@ -524,7 +524,7 @@ void GenericDataView::PopulateDataGrid(const IGenericAccessGroupEntry* entry, un
 		else if(entryType == IGenericAccessGroup::GroupEntryType::Command)
 		{
 			//const IGenericAccessGroupCommandEntry* commandEntry = static_cast<const IGenericAccessGroupCommandEntry*>(entry);
-			name = L"";
+			name.clear();
 
 			//Set the correct control type for the value column
 			WC_DataGrid::Grid_SetCellInfo setCellInfo(VALUECOLUMNID, currentRow, WC_DataGrid::CellControlType::Button);

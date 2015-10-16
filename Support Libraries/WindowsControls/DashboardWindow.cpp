@@ -972,7 +972,7 @@ LRESULT DashboardWindow::msgWM_MOUSEMOVE(WPARAM wParam, LPARAM lParam)
 		bool positiveSnapPosValid = (!dividerSnapPositionsPositiveSorted.empty() && (dividerSnapPositionsPositiveSorted.begin()->first <= maxPositiveDisplacementX));
 		bool negativeSnapPosValid = (!dividerSnapPositionsNegativeSorted.empty() && (dividerSnapPositionsNegativeSorted.begin()->first <= maxNegativeDisplacementX));
 		int snapPosDisplacement = 0;
-		std::set<Divider*> dividerSnapSet;
+
 		if(positiveSnapPosValid && (!negativeSnapPosValid || (dividerSnapPositionsPositiveSorted.begin()->first >= dividerSnapPositionsNegativeSorted.begin()->first)))
 		{
 			snapPosDisplacement = dividerSnapPositionsPositiveSorted.begin()->first;
@@ -1049,7 +1049,7 @@ LRESULT DashboardWindow::msgWM_MOUSEMOVE(WPARAM wParam, LPARAM lParam)
 		bool positiveSnapPosValid = (!dividerSnapPositionsPositiveSorted.empty() && (dividerSnapPositionsPositiveSorted.begin()->first <= maxPositiveDisplacementY));
 		bool negativeSnapPosValid = (!dividerSnapPositionsNegativeSorted.empty() && (dividerSnapPositionsNegativeSorted.begin()->first <= maxNegativeDisplacementY));
 		int snapPosDisplacement = 0;
-		std::set<Divider*> dividerSnapSet;
+
 		if(positiveSnapPosValid && (!negativeSnapPosValid || (dividerSnapPositionsPositiveSorted.begin()->first >= dividerSnapPositionsNegativeSorted.begin()->first)))
 		{
 			snapPosDisplacement = dividerSnapPositionsPositiveSorted.begin()->first;

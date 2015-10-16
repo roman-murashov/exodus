@@ -955,7 +955,6 @@ bool ExodusInterface::CanModuleBeLoaded(const MarshalSupport::Marshal::In<std::w
 	}
 
 	//Ensure that all connectors required by this module are available
-	ISystemGUIInterface::ConnectorMappingList connectorMappings;
 	std::list<unsigned int> loadedConnectorIDList = system->GetConnectorIDs();
 	for(ISystemGUIInterface::ConnectorImportList::const_iterator i = connectorsImported.begin(); i != connectorsImported.end(); ++i)
 	{
@@ -1912,7 +1911,7 @@ bool ExodusInterface::SelectExistingFile(const MarshalSupport::Marshal::In<std::
 }
 
 //----------------------------------------------------------------------------------------
-bool ExodusInterface::SelectExistingFileScanIntoArchive(const std::list<FileSelectionType>& selectionTypes, const std::wstring archivePath, std::wstring& selectedFilePath) const
+bool ExodusInterface::SelectExistingFileScanIntoArchive(const std::list<FileSelectionType>& selectionTypes, const std::wstring & archivePath, std::wstring& selectedFilePath) const
 {
 	//Open the target archive file
 	Stream::File archiveFile;

@@ -12,18 +12,18 @@ struct BusInterface::BusInterfaceParams
 	 usePhysicalPortMapDefined(false)
 	{}
 
+	unsigned int addressBusWidth;
+	unsigned int dataBusWidth;
+	unsigned int portAddressBusWidth;
+	unsigned int portDataBusWidth;
+
 	bool addressBusWidthDefined;
 	bool dataBusWidthDefined;
 	bool usePhysicalMemoryMapDefined;
 	bool portAddressBusWidthDefined;
 	bool portDataBusWidthDefined;
 	bool usePhysicalPortMapDefined;
-
-	unsigned int addressBusWidth;
-	unsigned int dataBusWidth;
 	bool usePhysicalMemoryMap;
-	unsigned int portAddressBusWidth;
-	unsigned int portDataBusWidth;
 	bool usePhysicalPortMap;
 };
 

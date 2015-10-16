@@ -138,7 +138,7 @@ std::wstring GetModuleFilePath(HMODULE moduleHandle)
 
 		//Save the path to the target module, and flag that we've successfully read the
 		//module file path.
-		modulePath = stringBuffer.c_str();
+		modulePath = stringBuffer;
 		fileNameRead = true;
 	}
 

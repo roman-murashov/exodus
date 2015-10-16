@@ -48,7 +48,7 @@ struct Image::TIFFStreamManager
 	:stream(astream)
 	{}
 
-	TIFF* Open(std::string imageName, std::string mode)
+	TIFF* Open(const std::string & imageName, const std::string & mode)
 	{
 		return TIFFClientOpen(imageName.c_str(), mode.c_str(), (thandle_t)this,
 			ReadProc, WriteProc,
@@ -270,7 +270,7 @@ private:
 //TGA structures
 //----------------------------------------------------------------------------------------
 struct Image::TGAFileHeader
-{
+{ //-V802
 	//Field 1 - ID Length
 	unsigned char idLength;
 	//Field 2 - Color Map Type

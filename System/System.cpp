@@ -4116,8 +4116,6 @@ bool System::LoadSystem(const std::wstring& filePath, IHierarchicalStorageNode& 
 
 	//Load the elements from the root node one by one
 	bool loadedWithoutErrors = true;
-	NameToIDMap connectorNameToIDMap;
-	NameToIDMap lineGroupNameToIDMap;
 	for(std::list<IHierarchicalStorageNode*>::const_iterator i = childList.begin(); !loadSystemAbort && (i != childList.end()); ++i)
 	{
 		std::wstring elementName = (*i)->GetName();

@@ -59,7 +59,7 @@ bool AudioStream::Open(unsigned int achannelCount, unsigned int abitsPerSample, 
 	//Create the worker thread, and boost priority.
 	ResetEvent(startupCompleteEventHandle);
 	DWORD threadID;
-	HANDLE renderThreadHandle = CreateThread(NULL, 0, WorkerThread, this, CREATE_SUSPENDED, &threadID);
+	HANDLE renderThreadHandle = CreateThread(NULL, 0, WorkerThread, this, CREATE_SUSPENDED, &threadID); //-V513
 	if(renderThreadHandle == NULL)
 	{
 		//##DEBUG##

@@ -707,7 +707,7 @@ bool MDBusArbiter::ReadZ80ToM68000(unsigned int m68kMemoryAccessLocation, Data& 
 }
 
 //----------------------------------------------------------------------------------------
-bool MDBusArbiter::WriteZ80ToM68000(unsigned int m68kMemoryAccessLocation, Data m68kBusData, IDeviceContext* caller, double accessTime, unsigned int accessContext, IBusInterface::AccessResult& m68kBusAccessResult, double& executionTime)
+bool MDBusArbiter::WriteZ80ToM68000(unsigned int m68kMemoryAccessLocation, const Data & m68kBusData, IDeviceContext* caller, double accessTime, unsigned int accessContext, IBusInterface::AccessResult& m68kBusAccessResult, double& executionTime)
 {
 	std::unique_lock<std::mutex> lock(lineMutex);
 
@@ -1398,7 +1398,7 @@ void MDBusArbiter::ApplyPendingLineStateChanges(double accessTime)
 }
 
 //----------------------------------------------------------------------------------------
-bool MDBusArbiter::AdvanceUntilPendingLineStateChangeApplied(IDeviceContext* caller, double accessTime, unsigned int accessContext, LineID targetLine, Data targetLineState, double& lineStateReachedTime)
+bool MDBusArbiter::AdvanceUntilPendingLineStateChangeApplied(IDeviceContext* caller, double accessTime, unsigned int accessContext, LineID targetLine, const Data & targetLineState, double& lineStateReachedTime)
 {
 	std::unique_lock<std::mutex> lock(lineMutex);
 
