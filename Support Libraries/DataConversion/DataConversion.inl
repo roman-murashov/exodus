@@ -211,7 +211,7 @@ template<class T> void IntToStringBase16(T data, std::wstring& string, unsigned 
 
 	//Pad out the resulting string to the requested minimum character length
 	fmt[0] = L'%';
-	swprintf(&fmt[1], 20, L"0%dX", charLength);
+	swprintf(&fmt[1], 20, L"0%dX", (int)charLength);
 	swprintf(&buf[off], 100, fmt, data);
 
 	string = buf;
@@ -253,7 +253,7 @@ template<class T> void IntToStringBase10(T data, std::wstring& string, unsigned 
 
 	//Pad out the resulting string to the requested minimum character length
 	fmt[0] = L'%';
-	swprintf(&fmt[1], 20, L"0%dd", charLength);
+	swprintf(&fmt[1], 20, L"0%dd", (int)charLength);
 	swprintf(&buf[off], 100, fmt, data);
 
 	string = buf;
@@ -295,7 +295,7 @@ template<class T> void IntToStringBase8(T data, std::wstring& string, unsigned i
 
 	//Pad out the resulting string to the requested minimum character length
 	fmt[0] = L'%';
-	swprintf(&fmt[1], 20, L"0%do", charLength);
+	swprintf(&fmt[1], 20, L"0%do", (int)charLength);
 	swprintf(&buf[off], 100, fmt, data);
 
 	string = buf;

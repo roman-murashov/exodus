@@ -1850,7 +1850,7 @@ LRESULT DockingWindow::msgTabTrayWM_TIMER(HWND tabTrayHwnd, WPARAM wParam, LPARA
 	RECT rect;
 	GetWindowRect(currentAutoHidePanel->GetWindowHandle(), &rect);
 	int dockPanelBorderGraceWidth = DPIScaleWidth(20);
-	int dockPanelBorderGraceHeight = DPIScaleWidth(20);
+	int dockPanelBorderGraceHeight = DPIScaleHeight(20);
 	int dockPanelGraceRegionPosX = (rect.left - dockPanelBorderGraceWidth);
 	int dockPanelGraceRegionPosY = (rect.top - dockPanelBorderGraceHeight);
 	int dockPanelGraceRegionWidth = (rect.right - rect.left) + (2 * dockPanelBorderGraceWidth);

@@ -1786,22 +1786,22 @@ LRESULT DashboardWindow::msgWM_PRINTCLIENT(WPARAM wParam, LPARAM lParam)
 			{
 				if(extendButtonInfo.extendFromStart)
 				{
-					arrowBitmapDC = (divider->vertical)? hdcArrowTopLeftBitmap: hdcArrowTopLeftBitmap;
+					arrowBitmapDC = (divider->vertical) ? hdcArrowTopLeftBitmap : hdcArrowBottomRightBitmap;
 				}
 				else
 				{
-					arrowBitmapDC = (divider->vertical)? hdcArrowBottomLeftBitmap: hdcArrowTopRightBitmap;
+					arrowBitmapDC = (divider->vertical) ? hdcArrowBottomLeftBitmap: hdcArrowTopRightBitmap;
 				}
 			}
 			else
 			{
 				if(extendButtonInfo.extendFromStart)
 				{
-					arrowBitmapDC = (divider->vertical)? hdcArrowTopRightBitmap: hdcArrowBottomLeftBitmap;
+					arrowBitmapDC = (divider->vertical) ? hdcArrowTopRightBitmap: hdcArrowBottomLeftBitmap;
 				}
 				else
 				{
-					arrowBitmapDC = (divider->vertical)? hdcArrowBottomRightBitmap: hdcArrowBottomRightBitmap;
+					arrowBitmapDC = (divider->vertical) ? hdcArrowBottomRightBitmap : hdcArrowTopLeftBitmap;
 				}
 			}
 
@@ -2124,7 +2124,7 @@ LRESULT DashboardWindow::msgPlacementTargetWM_PRINTCLIENT(HWND placementTargetHw
 
 	//Calculate the size of the window image inside this window
 	int windowImageWidth = windowWidth - ((borderWidth + marginSize) * 2);
-	int windowImageHeight = windowHeight - ((borderWidth + marginSize) * 2);
+	int windowImageHeight = windowHeight - ((borderWidth + marginSize) * 2); //-V537
 
 	//Calculate the position of the window image inside this window
 	int windowImagePosX = borderWidth + marginSize;
@@ -2132,9 +2132,9 @@ LRESULT DashboardWindow::msgPlacementTargetWM_PRINTCLIENT(HWND placementTargetHw
 
 	//Calculate the size and position of the client region within the window image
 	int windowImageClientPosX = windowImagePosX + windowImageBorderWidth;
-	int windowImageClientPosY = windowImagePosY + windowImageBorderWidth;
+	int windowImageClientPosY = windowImagePosY + windowImageBorderWidth; //-V537
 	int windowImageClientWidth = windowImageWidth - (windowImageBorderWidth * 2);
-	int windowImageClientHeight = windowImageHeight - (windowImageBorderWidth * 2);
+	int windowImageClientHeight = windowImageHeight - (windowImageBorderWidth * 2); //-V537
 
 	//Calculate the size and position of the dock target region within the window image
 	int dockTargetImagePosX = (targetLocation == DockTargetPos::Right)? windowImageClientPosX + (windowImageClientWidth / 3): windowImageClientPosX;
@@ -2708,7 +2708,7 @@ void DashboardWindow::ShowDropTargets(IDockingWindow* callingDockingWindow, int 
 			std::map<DockTargetPos, int> dropTargetIconWidth;
 			std::map<DockTargetPos, int> dropTargetIconHeight;
 			dropTargetIconWidth[DockTargetPos::Left] = dropTargetWindowIconWidth + ((marginSize + borderWidth) * 2);
-			dropTargetIconHeight[DockTargetPos::Left] = dropTargetWindowIconHeight + ((marginSize + borderWidth) * 2);
+			dropTargetIconHeight[DockTargetPos::Left] = dropTargetWindowIconHeight + ((marginSize + borderWidth) * 2); //-V537
 			dropTargetIconWidth[DockTargetPos::Right] = dropTargetWindowIconWidth + ((marginSize + borderWidth) * 2);
 			dropTargetIconHeight[DockTargetPos::Right] = dropTargetWindowIconHeight + ((marginSize + borderWidth) * 2);
 			dropTargetIconWidth[DockTargetPos::Top] = dropTargetWindowIconHeight + ((marginSize + borderWidth) * 2);

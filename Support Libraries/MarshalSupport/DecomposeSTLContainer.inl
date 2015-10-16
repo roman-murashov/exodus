@@ -629,7 +629,7 @@ void DecomposeSTLContainer(void* itemArray, size_t elementSizeArray[], ISTLObjec
 
 //----------------------------------------------------------------------------------------
 template<class ElementType>
-void DecomposeSTLContainer(void* itemArray, size_t elementSizeArray[], ISTLObjectKeyMarshallerBase* const keyMarshallerArray[], size_t& elementArrayIndex, size_t& elementSizeArrayIndex, size_t keyMarshallerArrayIndex, ElementType& element)
+void DecomposeSTLContainer(void* itemArray, size_t elementSizeArray[], ISTLObjectKeyMarshallerBase* const keyMarshallerArray[], size_t& elementArrayIndex, size_t& elementSizeArrayIndex, size_t keyMarshallerArrayIndex, ElementType& element) //-V659
 {
 	//If a non-const lvalue reference has been supplied, convert it to a const lvalue
 	//reference and resolve the function again. We only supply overloads on this

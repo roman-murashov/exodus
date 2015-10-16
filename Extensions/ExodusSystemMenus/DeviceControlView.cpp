@@ -65,16 +65,14 @@ INT_PTR DeviceControlView::msgWM_TIMER(HWND hwnd, WPARAM wparam, LPARAM lparam)
 		}
 	}
 
-	//If we need to refresh the device list, copy the current list of devices into our
-	//local copy.
-	if(refreshDeviceList)
-	{
-		deviceList = newDeviceList;
-	}
 
 	//Refresh the device list if required
 	if(refreshDeviceList)
 	{
+		//If we need to refresh the device list, copy the current list of devices into our
+		//local copy.
+		deviceList = newDeviceList;
+		
 		SendMessage(GetDlgItem(hwnd, IDC_DEVICECONTROL_LIST), WM_SETREDRAW, FALSE, 0);
 
 		LRESULT top = SendMessage(GetDlgItem(hwnd, IDC_DEVICECONTROL_LIST), LB_GETTOPINDEX, 0, 0);
